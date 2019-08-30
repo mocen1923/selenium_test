@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){
+           $('#btnlogin').click(function () {
+               //1.获取用户名和密码
+                username = $('#username').val()
+               password = $('#password').val()
+               // 2.发起post ajax请求
+               $.ajax({
+                   'url':'/login_ajax_check',
+                   'type':'post',
+                   'data':{
+                       'username':username,
+                       'password':password
+                   },
+                   'dataType':'json',
+                   success:function (data) {
+                       if(data.res==0){
+                           alert(11)
+                           $('#errmsg').show().html('用户名或密码错误')
+                       }
+                       else {
+                           location.href='/index'
+                       }
+                   }
+               })
+           })
+        })
+    </script>
+    <style>
+        #errmsg{
+            display: none;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+post提交的信息在信息头中  安全性较高
+get提交的信息在url中
+<div >
+    用户名：<input type="text" id="username"></br>
+    密码：<input type="password" id="password"></br>
+    <input type="button" id = 'btnlogin' value="login">
+</div>
+<div id = errmsg></div>
+</body>
+</html>
